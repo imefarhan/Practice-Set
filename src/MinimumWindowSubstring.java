@@ -86,7 +86,7 @@ public class MinimumWindowSubstring {
     }
 
     public static String minWindow(String s, String t) {
-        // HashMap<Character, Integer> map = new HashMap<>();
+        // HashMap<Character, Integer> map =  new HashMap<>();
         int[] map = new int[128];
         int tLen = t.length();
         for (int i = 0; i < tLen; i++) {
