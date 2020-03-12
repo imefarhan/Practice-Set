@@ -26,8 +26,7 @@ public class ValidParantheses {
     }
 
     public static void main(String[] args) {
-        String s = "TRIANGLE";
-        String t = "[]{}()";
-        System.out.println(isValid(t));
+        String s = "[]{}()";
+        System.out.println(isValid(s));
     }
 }
