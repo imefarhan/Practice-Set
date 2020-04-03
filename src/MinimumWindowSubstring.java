@@ -2,15 +2,27 @@ public class MinimumWindowSubstring {
 
     public static String minWindow1(String s, String t) {
 
-        if (s == null || t == null || s.length() == 0 || t.length() == 0)
+        if(s==null || t==null)
             return "";
+        String res = "";
 
-        int len = s.length();
-        int cache[] = new int[26];
-        for (int i = 0; i < len; i++) {
-            cache[s.charAt(i) - 'A'] = i;
+        int[] cache = new int[256];
+        int left = 0, count=0, min = Integer.MAX_VALUE;
+        int slen = s.length(), tlen = t.length();
+        for(char c : t.toCharArray())
+            cache[c]++;
+        for(int right=0; right < slen; right++) {
+            if(--cache[s.charAt(right)] >= 0) count++;
+            while(count == tlen) {
+                if(min > right - left + 1) {
+                    min = right - left + 1;
+                    res = s.substring(left, right + 1);
+                }
+                if(++cache[s.charAt(left)] > 0) count--;
+                left++;
+            }
         }
-        return "";
+        return res;
     }
 
     public static String minWindow2(String s, String t) {
@@ -86,15 +98,11 @@ public class MinimumWindowSubstring {
     }
 
     public static String minWindow(String s, String t) {
-        // HashMap<Character, Integer> map = new HashMap<>();
         int[] map = new int[128];
         int tLen = t.length();
-        for (int i = 0; i < tLen; i++) {
-            char c = t.charAt(i);
-            map[c]++;
-        }
-        int begin = 0;
-        int len = Integer.MAX_VALUE;
+        for (int i = 0; i < tLen; i++)
+            map[t.charAt(i)]++;
+        int begin = 0, len = Integer.MAX_VALUE;
         int noOfCharsInT = t.length();
         for (int si = 0, ei = 0; ei < s.length(); ei++) {
             char currentCharInS = s.charAt(ei);
